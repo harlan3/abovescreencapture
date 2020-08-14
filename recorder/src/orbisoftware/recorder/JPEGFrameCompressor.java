@@ -21,6 +21,8 @@ public class JPEGFrameCompressor {
 
 	private ByteBuffer byteBuffer;
 	private IntBuffer intBuffer;
+	
+	private String myOS = System.getProperty("os.name").toLowerCase();
 
 	public class FramePacket {
 
@@ -48,6 +50,11 @@ public class JPEGFrameCompressor {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean isWindows() {
+
+		return (myOS.indexOf("win") >= 0);
+	}
 
 	public void pack(int[] newData, long frameTimeStamp, boolean reset) throws IOException {
 
@@ -63,7 +70,11 @@ public class JPEGFrameCompressor {
 		intBuffer.rewind();
 		intBuffer.put(newData);
 
-		tjc.setSourceImage(byteBuffer.array(), 0, 0, imageWidth, 0, imageHeight, TJ.PF_XRGB);
+		if (isWindows())
+			tjc.setSourceImage(byteBuffer.array(), 0, 0, imageWidth, 0, imageHeight, TJ.PF_XBGR);
+		else
+			tjc.setSourceImage(byteBuffer.array(), 0, 0, imageWidth, 0, imageHeight, TJ.PF_XRGB);
+		
 		byte[] jpegBuf = tjc.compress(TJ.FLAG_FASTDCT);
 		int jpegSize = tjc.getCompressedSize();
 		tjc.close();

@@ -30,6 +30,6 @@ package org.libjpegturbo.turbojpeg;
 
 final class TJLoader {
   static void load() {
-    System.loadLibrary("@TURBOJPEG_DLL_NAME@");
+     System.load("C:\\Program Files\\libjpeg-turbo64\\bin\\turbojpeg.dll");
   }
 }
