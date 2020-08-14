@@ -120,7 +120,6 @@ public class JRecorder implements ScreenRecorderListener {
 
 	public void frameRecorded() {
 		frameCount++;
-		// System.out.println("Frame count: " + frameCount);
 	}
 
 	public void recordingStopped() {

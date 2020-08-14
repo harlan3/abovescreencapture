@@ -29,31 +29,23 @@
 package org.libjpegturbo.turbojpeg;
 
 final class TJLoader {
+
+	private static String myOS = System.getProperty("os.name").toLowerCase();
+	
+	private static boolean isWindows() {
+
+		return (myOS.indexOf("win") >= 0);
+	}
+	
 	static void load() {
+		
 		try {
-			System.loadLibrary("turbojpeg");
-		} catch (java.lang.UnsatisfiedLinkError e) {
-			String os = System.getProperty("os.name").toLowerCase();
-			if (os.indexOf("mac") >= 0) {
-				try {
-					System.load("@CMAKE_INSTALL_FULL_LIBDIR@/libturbojpeg.jnilib");
-				} catch (java.lang.UnsatisfiedLinkError e2) {
-					System.load("/usr/lib/libturbojpeg.jnilib");
-				}
-			} else {
-				try {
-					System.load("/opt/libjpeg-turbo/lib64/libturbojpeg.so");
-				} catch (java.lang.UnsatisfiedLinkError e3) {
-					String libdir = "@CMAKE_INSTALL_FULL_LIBDIR@";
-					if (libdir.equals("@CMAKE_INSTALL_DEFAULT_PREFIX@/lib64")) {
-						System.load("@CMAKE_INSTALL_DEFAULT_PREFIX@/lib32/libturbojpeg.so");
-					} else if (libdir.equals("@CMAKE_INSTALL_DEFAULT_PREFIX@/lib32")) {
-						System.load("@CMAKE_INSTALL_DEFAULT_PREFIX@/lib64/libturbojpeg.so");
-					} else {
-						throw e3;
-					}
-				}
-			}
+			if (isWindows())
+				System.load("C:\\Program Files\\libjpeg-turbo64\\bin\\turbojpeg.dll");
+			else
+				System.load("/opt/libjpeg-turbo/lib64/libturbojpeg.so");
+		} catch (java.lang.UnsatisfiedLinkError e3) {
+			throw e3;
 		}
 	}
 }

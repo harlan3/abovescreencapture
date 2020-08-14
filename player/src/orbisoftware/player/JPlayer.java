@@ -199,7 +199,6 @@ public class JPlayer extends JFrame implements ScreenPlayerListener, ActionListe
 
 	public void newFrame(long frameTime) {
 		frameCount++;
-		// long time = System.currentTimeMillis() - startTime;
 		String seconds = "" + frameTime / 1000;
 		String milliseconds = String.format("%04d", frameTime % 1000);
 		frameLabel.setText("Frame: " + frameCount + " Time: " + seconds + "." + milliseconds);

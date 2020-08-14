@@ -22,7 +22,6 @@ public class JPEGFrameDecompressor {
 	public class FramePacket {
 
 		private InputStream iStream;
-		private int result;
 		private long frameTimeStamp;
 		private int[] newData;
 
