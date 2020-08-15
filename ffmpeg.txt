@@ -1,5 +1,5 @@
 
-ffmpeg -framerate 28 -i IMG_%d.jpg -vcodec libx264 -profile:v high -crf 20 -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" output.mp4
+ffmpeg -framerate 28 -i imageDir/IMG_%d.jpg -vcodec libx264 -pix_fmt yuv420p -crf 20 -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" output.mp4
 
 -framerate
 is the number of frames per second,
@@ -10,8 +10,8 @@ images proceed with integer number and do not have any leading zeros
 -vcodec 
 the video codec is libx264 (H.264)
 
--profile:v high
-use H.264 High Profile with advanced features, better quality
+-pix_fmt
+set pixel format to yuv420p (Windows friendly)
 
 -crf 20
 constant quality mode, very high quality
